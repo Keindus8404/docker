@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from views import ItemListView, ItemCreateView, ItemUpdateView, ItemDeleteView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('items/', include('items.urls'))
+    path('', ItemListView.as_view(), name='item_list'),
+    path('create/', ItemCreateView.as_view(), name='item_create'),
+    path('update/<int:pk>/', ItemUpdateView.as_view(), name='item_update'),
+    path('delete/<int:pk>/', ItemDeleteView.as_view(), name='item_delete'),
 ]

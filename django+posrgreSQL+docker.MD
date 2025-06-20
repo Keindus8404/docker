@@ -43,4 +43,28 @@ docker-compose run web python manage.py migrate
 # 5 앱 생성 및 모델 작성
 ```
 docker-compose run web python manage.py startapp items
+
+class Item(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.name
+```
+
+# 6. 마이그레이션 및 superuser 생성
+```
+docker-compose run web python manage.py makemigrations
+docker-compose run web python manage.py migrate
+docker-compose run web python manage.py createsuperuser
+```
+
+# 7. CRUD views, urls, templates 작성
+```
+items/views.py   클래스뷰
+config/urls.py  item의 urls을 참고하도록 include
+items/urls.py   라우팅 정보
+config/settings.py 'items' 앱 추가,  TEMPLATES 폴더 설정
+config/templages/items/ 폴더에 HTML파일 작성
 ```
